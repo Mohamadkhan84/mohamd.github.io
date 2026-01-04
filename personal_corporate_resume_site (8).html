@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>محمد | مهندس کامپیوتر</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-somehash" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<style>
+    * {margin:0; padding:0; box-sizing:border-box; font-family: 'Inter', 'Roboto', sans-serif;}
+    body {background-color:#0F172A; color:#F8FAFC; overflow-x:hidden; transition:background-color 0.3s, color 0.3s;}
+
+    header {display:flex; justify-content:space-between; align-items:center; padding:20px 40px; background-color:#0F172A; transition:background-color 0.3s; border-bottom:1px solid #3B82F6;}
+    header.sticky {background-color:#1E293B;}
+    header h1 {color:#3B82F6; font-size:2rem; font-weight:700;}
+    nav a {color:#F8FAFC; margin-left:20px; text-decoration:none; font-weight:500; transition:color 0.3s, transform 0.3s;}
+    nav a:hover {color:#10B981; transform:scale(1.05);}
+
+    .hero {display:flex; flex-direction:column; align-items:center; justify-content:center; height:85vh; text-align:center; padding:0 20px; position:relative; overflow:hidden;}
+    .hero h2 {font-size:2.5rem; color:#F8FAFC; margin-bottom:10px; font-weight:700; opacity:0; transform:translateY(-20px); animation:fadeInUp 1s forwards;}
+    .hero p {font-size:1.25rem; margin-bottom:20px; max-width:650px; opacity:0; transform:translateY(-20px); animation:fadeInUp 1s 0.3s forwards;}
+    .hero .buttons a {background-color:#3B82F6; color:#F8FAFC; padding:14px 28px; margin:0 10px; border-radius:8px; text-decoration:none; font-weight:600; transition:all 0.3s; opacity:0; transform:translateY(-20px); animation:fadeInUp 1s 0.6s forwards;}
+    .hero .buttons a:hover {background-color:#10B981; transform:scale(1.05);}
+
+    @keyframes fadeInUp {to {opacity:1; transform:translateY(0);}}
+
+    .skills, .portfolio, .certificates {padding:60px 20px; display:flex; justify-content:center; flex-wrap:wrap; gap:25px;}
+    .skill-card, .project-card, .certificate-card {background-color:#1E293B; padding:25px; border-radius:14px; width:280px; text-align:center; transition:transform 0.3s, box-shadow 0.3s, background-color 0.3s; opacity:0; transform:translateY(20px);}
+    .skill-card.visible, .project-card.visible, .certificate-card.visible {opacity:1; transform:translateY(0);}
+    .skill-card:hover, .project-card:hover, .certificate-card:hover {transform:translateY(-5px) scale(1.04); box-shadow:0 14px 28px rgba(0,0,0,0.5); background-color:#283045;}
+    .skill-card h3, .project-card h4, .certificate-card h4 {color:#3B82F6; margin-bottom:12px; font-weight:700;}
+    .skill-card p, .project-card p, .certificate-card p {color:#F8FAFC; font-size:1rem; line-height:1.5;}
+
+    .project-card i, .certificate-card i {color:#10B981; font-size:2rem; margin-bottom:10px;}
+
+    .carousel {position:relative; width:100%; max-width:800px; margin:20px auto; overflow:hidden; border-radius:12px;}
+    .carousel-track {display:flex; transition:transform 0.5s ease-in-out;}
+    .carousel-slide {min-width:100%; transition:transform 0.5s ease-in-out;}
+    .carousel-slide img {width:100%; display:block; border-radius:12px;}
+    .carousel-buttons {position:absolute; top:50%; width:100%; display:flex; justify-content:space-between; transform:translateY(-50%);}
+    .carousel-buttons button {background:rgba(0,0,0,0.5); border:none; color:#F8FAFC; padding:10px 15px; cursor:pointer; border-radius:6px; font-size:1.2rem; transition:background 0.3s;}
+    .carousel-buttons button:hover {background:rgba(0,0,0,0.7);}
+
+    .contact {padding:60px 20px; text-align:center;}
+    .contact form {display:flex; flex-direction:column; max-width:450px; margin:0 auto;}
+    .contact input, .contact textarea {padding:14px; margin-bottom:18px; border-radius:8px; border:none; transition:box-shadow 0.3s; font-size:1rem;}
+    .contact input:focus, .contact textarea:focus {outline:none; box-shadow:0 0 12px #3B82F6;}
+    .contact button {padding:14px; border:none; border-radius:8px; background-color:#3B82F6; color:#F8FAFC; font-weight:700; cursor:pointer; transition:all 0.3s; font-size:1rem;}
+    .contact button:hover {background-color:#10B981; transform:scale(1.05);}
+
+    footer {background-color:#1E293B; text-align:center; padding:25px; margin-top:40px; font-size:0.95rem; color:#94A3B8; border-top:1px solid #3B82F6;}
+
+    .mode-toggle {position:fixed; top:25px; right:25px; background-color:#3B82F6; color:#F8FAFC; border:none; padding:12px 16px; border-radius:8px; cursor:pointer; font-weight:700; transition:all 0.3s; z-index:1000; font-size:0.95rem;}
+    .mode-toggle:hover {background-color:#10B981;}
+
+    @media (max-width:768px) {header {flex-direction:column; gap:12px;} .hero h2 {font-size:2rem;} .hero p {font-size:1.1rem;} .skills, .portfolio, .certificates {flex-direction:column; align-items:center;} .carousel {max-width:90%;}}
+    @media (max-width:480px) {.hero h2 {font-size:1.6rem;} .hero p {font-size:1rem;} .hero .buttons a {padding:12px 22px; margin:5px 0;}}
+</style>
+</head>
+<body>
+
+<button class="mode-toggle" id="modeToggle">تغییر حالت</button>
+
+<header id="header">
+    <h1>محمد</h1>
+    <nav>
+        <a href="#hero">خانه</a>
+        <a href="#skills">مهارت‌ها</a>
+        <a href="#portfolio">نمونه‌کار</a>
+        <a href="#certificates">مدارک</a>
+        <a href="#contact">تماس</a>
+    </nav>
+</header>
+
+<section class="hero" id="hero">
+    <h2>محمد | مهندس کامپیوتر</h2>
+    <p>راهکارهای دیجیتال هوشمند برای رشد کسب‌وکارها. آماده ارائه خدمات حرفه‌ای و همکاری با شرکت‌ها و تیم‌های نوآور.</p>
+    <div class="buttons">
+        <a href="#skills">مشاهده رزومه</a>
+        <a href="#contact">تماس با ما</a>
+    </div>
+</section>
+
+<section class="skills" id="skills">
+    <div class="skill-card">
+        <i class="fas fa-laptop-code"></i>
+        <h3>طراحی وب</h3>
+        <p>پیاده‌سازی وب‌سایت‌های مدرن و ریسپانسیو با بهترین استانداردها.</p>
+    </div>
+    <div class="skill-card">
+        <i class="fas fa-robot"></i>
+        <h3>هوش مصنوعی</h3>
+        <p>پیاده‌سازی الگوریتم‌های هوشمند برای بهینه‌سازی فرآیندها.</p>
+    </div>
+    <div class="skill-card">
+        <i class="fas fa-code"></i>
+        <h3>برنامه‌نویسی</h3>
+        <p>توسعه نرم‌افزار با زبان‌های مختلف و حل مسائل پیچیده.</p>
+    </div>
+</section>
+
+<section class="portfolio" id="portfolio">
+    <div class="project-card">
+        <i class="fas fa-globe"></i>
+        <h4>نمونه‌کار وب</h4>
+        <div class="carousel" id="carousel1">
+            <div class="carousel-track">
+                <div class="carousel-slide"><img src="images/project1.jpg" alt="پروژه وب 1"></div>
+                <div class="carousel-slide"><img src="images/project2.jpg" alt="پروژه وب 2"></div>
+            </div>
+            <div class="carousel-buttons">
+                <button class="prev">&#10094;</button>
+                <button class="next">&#10095;</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="certificates" id="certificates">
+    <div class="certificate-card">
+        <i class="fas fa-certificate"></i>
+        <h4>مدرک برنامه‌نویسی</h4>
+        <a href="pdf/certificate1.pdf" target="_blank"><img src="images/certificate1_thumb.jpg" alt="مدرک 1"></a>
+    </div>
+    <div class="certificate-card">
+        <i class="fas fa-certificate"></i>
+        <h4>مدرک هوش مصنوعی</h4>
+        <a href="pdf/certificate2.pdf" target="_blank"><img src="images/certificate2_thumb.jpg" alt="مدرک 2"></a>
+    </div>
+</section>
+
+<section class="contact" id="contact">
+    <h2>تماس با من</h2>
+    <form>
+        <input type="text" placeholder="نام شما" required>
+        <input type="email" placeholder="ایمیل" required>
+        <textarea placeholder="پیام شما" rows="5" required></textarea>
+        <button type="submit">ارسال پیام</button>
+    </form>
+</section>
+
+<footer>
+    © 2026 محمد | مهندس کامپیوتر. همه حقوق محفوظ است.
+</footer>
+
+<script>
+    const header = document.getElementById('header');
+    const modeToggle = document.getElementById('modeToggle');
+    let darkMode = true;
+
+    window.addEventListener('scroll', () => {
+        header.classList.toggle('sticky', window.scrollY > 50);
+    });
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', e => {
+            e.preventDefault();
+            document.querySelector(anchor.getAttribute('href')).scrollIntoView({behavior: 'smooth'});
+        });
+    });
+
+    const observerElements = document.querySelectorAll('.skill-card, .project-card, .certificate-card');
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => { if(entry.isIntersecting){entry.target.classList.add('visible');} });
+    }, { threshold: 0.2 });
+    observerElements.forEach(el => observer.observe(el));
+
+    modeToggle.addEventListener('click', () => {
+        darkMode = !darkMode;
+        document.body.style.backgroundColor = darkMode ? '#0F172A' : '#F8FAFC';
+        document.body.style.color = darkMode ? '#F8FAFC' : '#0F172A';
+    });
+
+    document.querySelectorAll('.carousel').forEach(carousel => {
+        const track = carousel.querySelector('.carousel-track');
+        const slides = Array.from(track.children);
+        const nextBtn = carousel.querySelector('.next');
+        const prevBtn = carousel.querySelector('.prev');
+        let index = 0;
+
+        function updateCarousel() { track.style.transform = `translateX(-${index * 100}%)`; }
+        nextBtn.addEventListener('click', () => { index = (index + 1) % slides.length; updateCarousel(); });
+        prevBtn.addEventListener('click', () => { index = (index - 1 + slides.length) % slides.length; updateCarousel(); });
+    });
+</script>
+
+</body>
+</html>
